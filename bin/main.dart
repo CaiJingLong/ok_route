@@ -28,6 +28,11 @@ main(List<String> arguments) {
     results[generator] = scanResults;
   }
 
+  // 生成, 2种方案:
+
+  //  1. 每个子项目生成自己的route map, 主工程引用子项目 ,初步决定用这种
+  //  2. 主工程直接在同一个文件引入所有子工程的route map
+
   // final file = File("${dir.path}/bin/main.dart");
   // scanFile(file);
 }
