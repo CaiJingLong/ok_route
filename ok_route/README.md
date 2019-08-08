@@ -19,7 +19,7 @@ Annotation route of flutter.
 
 ```yaml
 dependencies:
-  ok_route: ^0.1.0
+  ok_route: ^0.1.1
 ```
 
 ### Add Annotation to your widget

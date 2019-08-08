@@ -1,10 +1,7 @@
 import 'dart:io';
 
 import 'package:ok_route/ok_route.dart';
-
-import 'code_maker.dart';
-import 'generator.dart';
-import 'project_helper.dart';
+import 'package:ok_route/generator.dart';
 
 main(List<String> arguments) {
   String projectRootPath;
