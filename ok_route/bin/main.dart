@@ -2,12 +2,19 @@ import 'dart:io';
 
 import 'package:ok_route/ok_route.dart';
 
+import 'code_maker.dart';
 import 'generator.dart';
 import 'project_helper.dart';
 
 main(List<String> arguments) {
-  var projectRootPath =
-      "/Users/caijinglong/code/flutter/sxw/sxw_order_2"; // 主应用文件夹
+  String projectRootPath;
+  if (arguments.length == 0) {
+    projectRootPath = Directory.current.path;
+  } else {
+    projectRootPath = arguments[0];
+  }
+
+  print("handle $projectRootPath");
 
   final helper = ProjectHelper(projectRootPath);
   final projects = helper.loadProjectPathList(); // 获取所有主应用的依赖文件夹(相对路径)
@@ -35,6 +42,8 @@ main(List<String> arguments) {
 
   // final file = File("${dir.path}/bin/main.dart");
   // scanFile(file);
+
+  CodeMaker().makeCode(projectRootPath, results);
 }
 
 @OKRoute("/home")
