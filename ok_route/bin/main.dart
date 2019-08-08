@@ -42,9 +42,3 @@ main(List<String> arguments) {
 
   print("make route finish.");
 }
-
-@OKRoute("/home")
-class Page extends BasePage {}
-
-@OKRoute("/base")
-class BasePage {}

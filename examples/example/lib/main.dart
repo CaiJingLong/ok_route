@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ok_route/ok_route.dart';
 import 'package:ok_route_example/okroutes.dart';
+import 'package:ok_route_library/ok_route_library.dart';
 
 void main() => runApp(MyApp());
 

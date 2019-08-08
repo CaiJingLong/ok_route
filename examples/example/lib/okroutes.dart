@@ -1,15 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ok_route/ok_route.dart';
+import 'package:ok_route_library/ok_route_library.dart';
 import 'package:sub_module1/generate/ok_route_map.dart' as m0;
-import 'package:ok_route_example/generate/ok_route_map.dart' as m1;
+import 'package:ok_route_library/generate/ok_route_map.dart' as m1;
+import 'package:ok_route_example/generate/ok_route_map.dart' as m2;
 
 class OKRouteMap {
   static Map<String, WidgetBuilder> getRoutes() {
     Map<String, WidgetBuilder> routes = {};
     routes.addAll(m0.$OKRouteMap.routes);
     routes.addAll(m1.$OKRouteMap.routes);
+    routes.addAll(m2.$OKRouteMap.routes);
     return routes;
   }
 
@@ -27,13 +29,18 @@ class OKRouteMap {
       return MaterialPageRoute(
         builder: (BuildContext context) {
           final w = widgetBuilder(context);
-          OKRouteParams.putParams(w, paramJson);
-          return w;
+          return OKRouteParams(
+            child: w,
+            params: paramJson,
+          );
         },
       );
     } else if (handleResults.length == 1) {
       return MaterialPageRoute(
-        builder: (BuildContext context) => routes[handleResults[0]](context),
+        builder: (BuildContext context) => OKRouteParams(
+          child: routes[handleResults[0]](context),
+          params: {},
+        ),
       );
     } else {
       return null;

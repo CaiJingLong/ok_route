@@ -14,7 +14,6 @@ Annotation route of flutter.
   - [Pass params](#pass-params)
     - [Push](#push)
     - [Get](#get)
-      - [Release resource](#release-resource)
   - [LICENSE](#license)
 
 ## Usage
@@ -23,13 +22,13 @@ Annotation route of flutter.
 
 ```yaml
 dependencies:
-  ok_route: ^0.1.2
+  ok_route_library: ^0.1.0
 ```
 
 ### Add Annotation to your widget
 
 ```dart
-import `package:ok_route:okroute.dart`;
+import 'package:ok_route_library/ok_route_library.dart';
 
 @OKRoute("/home")
 class HomePage extends StatelessWidget{
@@ -43,7 +42,7 @@ class HomePage extends StatelessWidget{
 
 Use [`pub global`](https://dart.dev/tools/pub/cmd/pub-global)
 
-Add `pub/pub.bat` to your \$PATH.
+Add `pub/pub.bat` to your `$PATH`.
 
 Add cache/bin to your path like image
 
@@ -89,6 +88,8 @@ class MyApp extends StatelessWidget {
 Only support basic type, because it will be converted to json during the transfer process.
 
 ```dart
+import 'package:ok_route_library/ok_route_library.dart';
+
   final name = OKRoute.createPushString(
     "/sub_home",
     params: {"name": "hello"},
@@ -99,30 +100,13 @@ Only support basic type, because it will be converted to json during the transfe
 ### Get
 
 ```dart
-  final params = OKRouteParams.getParams(this); // 'this' is widget. If you use the mothod in state, you need use OKRouteParams.getParams(widget);
-  final name = params["name"];
-  print(name); // "hello"
-```
+import 'package:ok_route_library/ok_route_library.dart';
 
-#### Release resource
-
-Because the parameters passed are cached, you need to release the resources of the parameters at the right time.
-
-StatelessWidget:
-
-```dart
 @OKRoute("/sub_home")
 class Page extends StatelessWidget {
-  final Map<String, dynamic> params = {};
-
-  Page({Key key}) : super(key: key) {
-    this.params.addAll(OKRouteParams.getParams(this)); // the method will remove param in current;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final name = params["name"];
-
+    final name = OKRouteParams.of(context)["name"]; // get params
     return Scaffold(
       appBar: AppBar(
         title: Text("title"),
@@ -137,38 +121,7 @@ class Page extends StatelessWidget {
     );
   }
 }
-```
 
-StatefulWidget:
-
-```dart
-@OKRoute("/route_page")
-class StatePage extends StatefulWidget {
-  @override
-  _StatePageState createState() => _StatePageState();
-}
-
-class _StatePageState extends State<StatePage> {
-  Map<String, dynamic> params;
-
-  @override
-  void initState() {
-    super.initState();
-    params = OKRouteParams.getParams(widget);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(params["name"]);
-  }
-
-  @override
-  void dispose() {
-    OKRouteParams.removeParams(widget);
-    super.dispose();
-  }
-
-}
 ```
 
 ## LICENSE

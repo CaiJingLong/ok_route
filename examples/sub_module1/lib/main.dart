@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ok_route/ok_route.dart';
+import 'package:ok_route_library/ok_route_library.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,16 +28,9 @@ class MyApp extends StatelessWidget {
 
 @OKRoute("/sub_home")
 class Page extends StatelessWidget {
-  final Map<String, dynamic> params = {};
-
-  Page({Key key}) : super(key: key) {
-    this.params.addAll(OKRouteParams.getParams(this));
-  }
-
   @override
   Widget build(BuildContext context) {
-    final name = params["name"];
-
+    final name = OKRouteParams.of(context)["name"];
     return Scaffold(
       appBar: AppBar(
         title: Text("title"),
@@ -60,22 +53,19 @@ class StatePage extends StatefulWidget {
 }
 
 class _StatePageState extends State<StatePage> {
-  Map<String, dynamic> params;
-
   @override
   void initState() {
     super.initState();
-    params = OKRouteParams.getParams(widget);
   }
 
   @override
   Widget build(BuildContext context) {
+    final params = OKRouteParams.of(context);
     return Text(params["name"]);
   }
 
   @override
   void dispose() {
-    OKRouteParams.removeParams(widget);
     super.dispose();
   }
 }

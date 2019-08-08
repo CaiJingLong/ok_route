@@ -63,7 +63,8 @@ class PackageTemplate {
       sb.write(
           "import 'package:$pkgName/${getLibFilePath(pkgDir, result.file)}' as s$i show ");
 
-      final clazzName = result.routes.map((route)=>route.className).join(", ");
+      final clazzName =
+          result.routes.map((route) => route.className).join(", ");
 
       sb.write(clazzName.toString());
       sb.writeln(";");
@@ -130,7 +131,7 @@ class MainProjectTemplate {
     sb.writeln("import 'dart:convert';");
     sb.writeln();
     sb.writeln("import 'package:flutter/material.dart';");
-    sb.writeln("import 'package:ok_route/ok_route.dart';");
+    sb.writeln("import 'package:ok_route_library/ok_route_library.dart';");
     final generators = results.keys.toList();
 
     for (var i = 0; i < generators.length; i++) {
@@ -162,6 +163,7 @@ class MainProjectTemplate {
     sb.write(_onGenerateRouteCode);
 
     sb.writeln("}");
+
     file.writeAsStringSync(sb.toString());
   }
 }
@@ -182,13 +184,18 @@ const _onGenerateRouteCode = """
       return MaterialPageRoute(
         builder: (BuildContext context) {
           final w = widgetBuilder(context);
-          OKRouteParams.putParams(w, paramJson);
-          return w;
+          return OKRouteParams(
+            child: w,
+            params: paramJson,
+          );
         },
       );
     } else if (handleResults.length == 1) {
       return MaterialPageRoute(
-        builder: (BuildContext context) => routes[handleResults[0]](context),
+        builder: (BuildContext context) => OKRouteParams(
+          child: routes[handleResults[0]](context),
+          params: {},
+        ),
       );
     } else {
       return null;

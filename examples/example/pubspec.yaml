@@ -25,8 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   sub_module1:
     path: ../sub_module1
-  ok_route:
-    path: ../../ok_route/
+  ok_route_library:
+    path: ../../ok_route_library
 dev_dependencies:
   flutter_test:
     sdk: flutter
