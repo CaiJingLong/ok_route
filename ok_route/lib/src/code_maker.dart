@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:ok_route/ok_route.dart';
+
 import 'generator.dart';
 
 const _packageRoutePath = "/generate/ok_route_map.dart";
@@ -128,7 +130,10 @@ class MainProjectTemplate {
     /// 2. 获取pkg的名字
     /// 3. 拼接出 import 头 做 as
     StringBuffer sb = StringBuffer();
-    sb.writeln("import 'package:flutter/widgets.dart';");
+    sb.writeln("import 'dart:convert';");
+    sb.writeln();
+    sb.writeln("import 'package:flutter/material.dart';");
+    sb.writeln("import 'package:ok_route/ok_route.dart';");
     final generators = results.keys.toList();
 
     for (var i = 0; i < generators.length; i++) {
@@ -156,7 +161,40 @@ class MainProjectTemplate {
     sb.writeln("return routes;");
 
     sb.writeln("  }");
+
+    sb.write(_onGenerateRouteCode);
+
     sb.writeln("}");
     file.writeAsStringSync(sb.toString());
   }
 }
+
+const _onGenerateRouteCode = """
+
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    final routes = OKRouteMap.getRoutes();
+    final handleResults = settings.name.split("----||----");
+    if (handleResults.length >= 2) {
+      String name = handleResults[0];
+      String paramsString = handleResults[1];
+
+      final str = utf8.decode(base64.decode(paramsString));
+
+      final paramJson = json.decode(str);
+      final widgetBuilder = routes[name];
+      return MaterialPageRoute(
+        builder: (BuildContext context) {
+          final w = widgetBuilder(context);
+          OKRouteParams.putParams(w, paramJson);
+          return w;
+        },
+      );
+    } else if (handleResults.length == 1) {
+      return MaterialPageRoute(
+        builder: (BuildContext context) => routes[handleResults[0]](context),
+      );
+    } else {
+      return null;
+    }
+  }
+""";
