@@ -61,13 +61,10 @@ class PackageTemplate {
     for (var i = 0; i < results.length; i++) {
       final result = results[i];
       sb.write(
-          "import 'package:$pkgName/${getLibFilePath(pkgDir, result.file)}' as s$i show");
+          "import 'package:$pkgName/${getLibFilePath(pkgDir, result.file)}' as s$i show ");
 
-      final clazzName = StringBuffer();
+      final clazzName = result.routes.map((route)=>route.className).join(", ");
 
-      for (var route in result.routes) {
-        clazzName.write(" ${route.className}");
-      }
       sb.write(clazzName.toString());
       sb.writeln(";");
     }

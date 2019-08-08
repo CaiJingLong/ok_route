@@ -28,9 +28,14 @@ class MyApp extends StatelessWidget {
 
 @OKRoute("/sub_home")
 class Page extends StatelessWidget {
+  final Map<String, dynamic> params = {};
+
+  Page({Key key}) : super(key: key) {
+    this.params.addAll(OKRouteParams.getParams(this));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final params = OKRouteParams.getParams(this);
     final name = params["name"];
 
     return Scaffold(
@@ -45,5 +50,32 @@ class Page extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+@OKRoute("/route_page")
+class StatePage extends StatefulWidget {
+  @override
+  _StatePageState createState() => _StatePageState();
+}
+
+class _StatePageState extends State<StatePage> {
+  Map<String, dynamic> params;
+
+  @override
+  void initState() {
+    super.initState();
+    params = OKRouteParams.getParams(widget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(params["name"]);
+  }
+
+  @override
+  void dispose() {
+    OKRouteParams.removeParams(widget);
+    super.dispose();
   }
 }

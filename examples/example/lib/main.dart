@@ -35,8 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    final name =
-        OKRoute.createPushString("/sub_home", params: {"name": "hello"});
+    final name = OKRoute.createPushString(
+      "/sub_home",
+      params: {"name": "hello"},
+    );
     Navigator.of(context).pushNamed(name);
   }
 
