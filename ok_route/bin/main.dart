@@ -14,7 +14,7 @@ main(List<String> arguments) {
     projectRootPath = arguments[0];
   }
 
-  print("handle $projectRootPath");
+  print("loading $projectRootPath dir.");
 
   final helper = ProjectHelper(projectRootPath);
   final projects = helper.loadProjectPathList(); // 获取所有主应用的依赖文件夹(相对路径)
@@ -30,8 +30,9 @@ main(List<String> arguments) {
     if (!generator.isFlutterProject()) {
       continue;
     }
-    print(generator.getPackageName()); // 应用的包名, 后面导入或导出的时候用
+    print("scaning ${generator.getPackageName()} start."); // 应用的包名, 后面导入或导出的时候用
     final scanResults = generator.scanLib(); // 扫描包得到注解对应的结果, 注意:不递归
+    print("scaning ${generator.getPackageName()} finish.");
     results[generator] = scanResults;
   }
 
@@ -40,10 +41,9 @@ main(List<String> arguments) {
   //  1. 每个子项目生成自己的route map, 主工程引用子项目 ,初步决定用这种
   //  2. 主工程直接在同一个文件引入所有子工程的route map
 
-  // final file = File("${dir.path}/bin/main.dart");
-  // scanFile(file);
-
   CodeMaker().makeCode(projectRootPath, results);
+
+  print("make route finish.");
 }
 
 @OKRoute("/home")

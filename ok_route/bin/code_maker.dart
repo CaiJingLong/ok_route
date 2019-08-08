@@ -16,16 +16,27 @@ class CodeMaker {
       _createPackageRouteFile(generator, results[generator]);
     }
 
-    final mainTemplate = MainProjectTemplate();
-    mainTemplate.makeCode(projectRootPath, results);
+    final appGen = Generator(projectRootPath);
+
+    if (appGen.isFlutterProject()) {
+      final mainTemplate = MainProjectTemplate();
+      mainTemplate.makeCode(projectRootPath, results);
+      print("create application ${appGen.getPackageName()} file.");
+    } else {
+      print(
+          "the application ${appGen.getPackageName()} is not a flutter project.");
+    }
   }
 
   void _createPackageRouteFile(Generator generator, List<ScanResult> results) {
+    final pkgName = generator.getPackageName();
     if (!generator.isFlutterProject()) {
+      print("$pkgName isn't flutter package. skip!");
       return;
     }
 
-    final pkgName = generator.getPackageName();
+    print("create $pkgName route file");
+
     final pkgDir = generator.projectRootPath;
 
     final template = PackageTemplate(pkgDir, pkgName, results);
