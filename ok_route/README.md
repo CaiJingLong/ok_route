@@ -22,7 +22,7 @@ Annotation route of flutter.
 
 ```yaml
 dependencies:
-  ok_route_library: ^0.1.0
+  ok_route_library: ^0.1.1
 ```
 
 ### Add Annotation to your widget
@@ -95,6 +95,11 @@ import 'package:ok_route_library/ok_route_library.dart';
     params: {"name": "hello"},
   );
   Navigator.of(context).pushNamed(name);
+
+// or
+
+  OKRoute.pushNamed(context, "/sub_home", params: {"name": "hello"},);
+
 ```
 
 ### Get
@@ -106,7 +111,7 @@ import 'package:ok_route_library/ok_route_library.dart';
 class Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final name = OKRouteParams.of(context)["name"]; // get params
+    final name = OKRoute.getParams(context)["name"]; // Get params , the params type is Map<String,dynamic>.
     return Scaffold(
       appBar: AppBar(
         title: Text("title"),

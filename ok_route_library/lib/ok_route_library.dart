@@ -19,6 +19,19 @@ class OKRoute {
     final paramsString = base64.encode(utf8.encode(str));
     return "$routeName$splitString$paramsString";
   }
+
+  static Map<String, dynamic> getParams(BuildContext context) {
+    return OKRouteParams.of(context);
+  }
+
+  static Future<T> pushNamed<T>(
+    BuildContext context,
+    String routeName, {
+    Map<String, dynamic> params,
+  }) {
+    final realname = createPushString(routeName, params: params);
+    return Navigator.of(context).pushNamed(realname);
+  }
 }
 
 class OKRouteParams extends InheritedWidget {
