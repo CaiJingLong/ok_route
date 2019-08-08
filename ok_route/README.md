@@ -14,7 +14,7 @@ Annotation route of flutter.
   - [Pass params](#pass-params)
     - [Push](#push)
     - [Get](#get)
-      - [aboult resource](#aboult-resource)
+      - [Release resource](#release-resource)
   - [LICENSE](#license)
 
 ## Usage
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: OKRouteMap.getRoutes(), // routes create by ok_route.
+      onGenerateRoute: OKRouteMap.onGenerateRoute, // routes create by ok_route.
     );
   }
 }
@@ -104,7 +104,7 @@ Only support basic type, because it will be converted to json during the transfe
   print(name); // "hello"
 ```
 
-#### aboult resource
+#### Release resource
 
 Because the parameters passed are cached, you need to release the resources of the parameters at the right time.
 
