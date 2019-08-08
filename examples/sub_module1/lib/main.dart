@@ -61,7 +61,7 @@ class _StatePageState extends State<StatePage> {
   @override
   Widget build(BuildContext context) {
     final params = OKRouteParams.of(context);
-    return Text(params["name"]);
+    return Text(params["name"] * 2);
   }
 
   @override

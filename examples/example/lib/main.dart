@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:ok_route_example/okroutes.dart';
 import 'package:ok_route_library/ok_route_library.dart';
@@ -36,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     final name = OKRoute.createPushString(
-      "/sub_home",
+      "/route_page",
       params: {"name": "hello"},
     );
     Navigator.of(context).pushNamed(name);
