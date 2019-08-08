@@ -129,7 +129,7 @@ class MainProjectTemplate {
     sb.writeln();
     sb.writeln("class OKRouteMap {");
 
-    sb.writeln("  Map<String, WidgetBuilder> getRoutes() {");
+    sb.writeln("  static Map<String, WidgetBuilder> getRoutes() {");
 
     sb.write(" " * 4);
     sb.writeln("Map<String, WidgetBuilder> routes = {};");
